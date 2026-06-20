@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKATO</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0b111e;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Background Image Container */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Placeholder background matching the original image's vibe */
+            background: linear-gradient(rgba(11, 17, 30, 0.6), rgba(11, 17, 30, 0.6)), 
+                        url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 60px;
+        }
+
+        /* Fallback background if the user wants to use their own image easily */
+        /* To use your exact image, replace the url above with your local path */
+
+        /* Header Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-join {
+            border: 1px solid #ffffff;
+            background: transparent;
+            color: #ffffff;
+            padding: 10px 24px;
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-join:hover {
+            background-color: #ffffff;
+            color: #0b111e;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Content Layout (Japanese Typography) */
+        .content-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+            pointer-events: none; /* Let clicks pass through to background if needed */
+        }
+
+        .text-vertical {
+            font-family: "MS Mincho", "Hiragino Mincho ProN", serif;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            letter-spacing: 6px;
+            font-size: 20px;
+            opacity: 0.85;
+            pointer-events: auto;
+        }
+
+        .left-text {
+            display: flex;
+            gap: 20px;
+        }
+
+        .right-text {
+            font-size: 42px;
+            letter-spacing: 12px;
+            font-weight: 500;
+        }
+
+        /* Toast Notification Styling for JS functions */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 4px;
+            letter-spacing: 2px;
+            font-size: 14px;
+            transition: bottom 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            bottom: 40px;
+            opacity: 1;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            .hero-container {
+                padding: 20px;
+            }
+            nav {
+                gap: 15px;
+            }
+            .nav-link {
+                letter-spacing: 2px;
+                font-size: 10px;
+            }
+            .btn-join {
+                padding: 8px 16px;
+                font-size: 10px;
+            }
+            .right-text {
+                font-size: 30px;
+            }
+            .left-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-container">
+        <header>
+            <div class="logo" id="logoBtn">CINDY'S FORECAST</div>
+            <nav>
+                <a class="nav-link" onclick="navigateTo('home')">Home</a>
+                <a class="nav-link" onclick="navigateTo('about')">About</a>
+                <a class="nav-link" onclick="navigateTo('discord')">Discord</a>
+                <button class="btn-join" id="joinBtn">Join Us</button>
+            </nav>
+        </header>
+
+        <div class="content-body">
+            <div class="left-text">
+                <div class="text-vertical">私たちは特別です</div>
+                <div class="text-vertical">私たちは変だ</div>
+            </div>
+
+            <div class="right-text text-vertical">
+                うかと
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toastMessage">Action Triggered!</div>
+
+    <script>
+        // Custom Alert/Toast Handler
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Navigation Link Actions
+        function navigateTo(page) {
+            console.log(`Navigating to ${page}...`);
+            
+            if (page === 'discord') {
+                showToast("Opening Discord Community Invite...");
+                // To direct users to a live server, uncomment below:
+                // window.open('https://discord.gg/your-link', '_blank');
+            } else {
+                showToast(`Loading the ${page.toUpperCase()} section...`);
+            }
+        }
+
+        // Action for the main "Join Us" button
+        document.getElementById('joinBtn').addEventListener('click', function() {
+            showToast("Welcome to UKATO! Registration modal initializing...");
+            
+            // Example interactive effect: dynamic button transition
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+        });
+
+        // Action for Logo click
+        document.getElementById('logoBtn').addEventListener('click', function() {
+            showToast("Refreshing home dashboard view...");
+        });
+    </script>
+</body>
+</html>

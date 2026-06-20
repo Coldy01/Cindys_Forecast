@@ -1,4 +1,4 @@
-# Weather With Cindy ☀️
+# Cindy's Forecast ☀️
 
 A simple, elegant weather website that displays current weather conditions for any city worldwide.
 

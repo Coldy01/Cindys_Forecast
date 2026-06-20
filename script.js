@@ -1,5 +1,5 @@
 // API Configuration
-const API_KEY = 'e7b60a94c4af433a12151501242606'; // Using WeatherAPI.com free tier
+const API_KEY = '84a8b9cbf5e242c383e143700261706'; // Using WeatherAPI.com free tier
 const API_BASE_URL = 'https://api.weatherapi.com/v1/current.json';
 
 // DOM Elements
