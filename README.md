@@ -66,7 +66,11 @@ This project uses the free WeatherAPI.com API which provides:
 - Temperature unit toggle (°C/°F)
 - Weather alerts
 - Saved favorite cities
+- better interface
+- detects and post your current location
+- do not need internet to use
 
+  
 ## License
 
 Free to use and modify for personal or commercial projects.
