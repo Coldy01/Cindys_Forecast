@@ -1,6 +1,5 @@
-// API Configuration
-const API_KEY = '84a8b9cbf5e242c383e143700261706'; // Using WeatherAPI.com free tier
-const API_BASE_URL = 'https://api.weatherapi.com/v1/current.json';
+// API Configuration (loaded from config.js)
+console.log('Config loaded - API_KEY:', window.API_KEY ? 'yes' : 'MISSING', 'API_BASE_URL:', window.API_BASE_URL);
 
 // DOM Elements
 const cityInput = document.getElementById('cityInput');
@@ -36,14 +35,16 @@ async function handleSearch() {
 // Fetch Weather Data
 async function fetchWeather(city) {
     const response = await fetch(
-        `${API_BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(city)}&aqi=no`
+        `${window.API_BASE_URL}?key=${window.API_KEY}&q=${encodeURIComponent(city)}&aqi=no`
     );
+
+    console.log('Response status:', response.status);
 
     if (!response.ok) {
         if (response.status === 400) {
             throw new Error('City not found. Please check the spelling.');
         }
-        throw new Error('Failed to fetch weather data');
+        throw new Error(`Failed to fetch weather data (status: ${response.status})`);
     }
 
     const data = await response.json();
