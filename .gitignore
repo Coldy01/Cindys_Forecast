@@ -1,0 +1,8 @@
+# Installer files
+installer.exe
+
+# Config files
+config.js
+
+# GitHub/Copilot instructions (may contain secrets)
+.github/
