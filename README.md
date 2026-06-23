@@ -1,5 +1,5 @@
 # Cindy's Forecast ☀️
-#skibidi
+## wiw
 A simple, elegant weather website that displays current weather conditions for any city worldwide. 
 
 ## Features
