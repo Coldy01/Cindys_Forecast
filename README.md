@@ -1,6 +1,6 @@
 # Cindy's Forecast ☀️
 
-A simple, elegant weather website that displays current weather conditions for any city worldwide.
+A simple, elegant weather website that displays current weather conditions for any city worldwide. 
 
 ## Features
 
