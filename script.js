@@ -96,6 +96,6 @@ function hideError() {
 
 // Load weather for default city on page load
 window.addEventListener('load', () => {
-    cityInput.value = 'Calamba';
+    cityInput.value = 'London';
     handleSearch();
 });
